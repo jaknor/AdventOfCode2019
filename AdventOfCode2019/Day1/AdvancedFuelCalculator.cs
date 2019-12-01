@@ -4,7 +4,15 @@ namespace AdventOfCode2019.Day1
     {
         public int Calculate(int mass)
         {
-            return (mass / 3) - 2;
+            var fuelForMass = (mass / 3) - 2;
+            var fuelForFuel = (fuelForMass / 3) - 2;
+
+            if (fuelForFuel < 0)
+            {
+                fuelForFuel = 0;
+            }
+
+            return fuelForMass + fuelForFuel;
         }
     }
 }
