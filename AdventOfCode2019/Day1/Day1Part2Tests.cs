@@ -35,5 +35,32 @@ namespace AdventOfCode2019.Day1
 
             requiredFuel.ShouldBe(expectedRequiredFuel);
         }
+
+        [Fact]
+        public void CanCalculateFuelForMassWhereRequiredFuelRequiresOneAdditionalFuelButAdditionalCalculationDoesNotRequireFuel()
+        {
+            var mass = 32;
+            var fuelRequiredForMass = 8;
+            var fuelRequiredForFuel = 0;
+            var expectedRequiredFuel = fuelRequiredForMass + fuelRequiredForFuel;
+
+            var requiredFuel = _fuelCalculator.Calculate(mass);
+
+            requiredFuel.ShouldBe(expectedRequiredFuel);
+        }
+
+        [Fact]
+        public void CanCalculateFuelForMassWhereRequiredFuelRequiresTwoAdditionalFuelCalculations()
+        {
+            var mass = 105;
+            var fuelRequiredForMass = 33;
+            var fuelRequiredForFuel1 = 9;
+            var fuelRequiredForFuel2 = 1;
+            var expectedRequiredFuel = fuelRequiredForMass + fuelRequiredForFuel1 + fuelRequiredForFuel2;
+
+            var requiredFuel = _fuelCalculator.Calculate(mass);
+
+            requiredFuel.ShouldBe(expectedRequiredFuel);
+        }
     }
 }
