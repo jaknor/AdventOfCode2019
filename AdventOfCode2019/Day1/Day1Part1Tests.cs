@@ -15,5 +15,16 @@ namespace AdventOfCode2019.Day1
 
             requiredFuel.ShouldBe(expectedRequiredFuel);
         }
+
+        [Fact]
+        public void CanCalculateFuelRequiredForMassNotDivisableByThree()
+        {
+            var mass = 14;
+            var expectedRequiredFuel = 2;
+
+            var requiredFuel = new FuelCalculator().Calculate(mass);
+
+            requiredFuel.ShouldBe(expectedRequiredFuel);
+        }
     }
 }
