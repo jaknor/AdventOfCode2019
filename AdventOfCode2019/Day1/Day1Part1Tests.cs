@@ -56,5 +56,16 @@ namespace AdventOfCode2019.Day1
 
             requiredFuel.ShouldBe(expectedFuelForEachMass.Sum());
         }
+
+        [Fact]
+        public void FullInput()
+        {
+            var input = new CalendarInput("Day1\\Day1Input.txt");
+            var expectedRequiredFuel = 3474920;
+
+            var requiredFuel = new FuelCounterUpper(_fuelCalculator).Calculate(input.Read());
+
+            requiredFuel.ShouldBe(expectedRequiredFuel);
+        }
     }
 }
