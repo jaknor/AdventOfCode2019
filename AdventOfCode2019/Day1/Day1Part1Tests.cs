@@ -1,11 +1,12 @@
 namespace AdventOfCode2019.Day1
 {
+    using System.Linq;
     using Shouldly;
     using Xunit;
 
     public class Day1Part1Tests
     {
-        private FuelCalculator _fuelCalculator;
+        private readonly FuelCalculator _fuelCalculator;
 
         public Day1Part1Tests()
         {
@@ -43,6 +44,17 @@ namespace AdventOfCode2019.Day1
             var requiredFuel = _fuelCalculator.Calculate(mass);
 
             requiredFuel.ShouldBe(expectedRequiredFuel);
+        }
+
+        [Fact]
+        public void CalculateFuelRequiredForMultipleElfs()
+        {
+            var mass = new int[] { 12, 14, 1969, 100756 };
+            var expectedFuelForEachMass = new int[] { 2, 2, 654, 33583 };
+
+            var requiredFuel = new FuelCounterUpper(_fuelCalculator).Calculate(mass);
+
+            requiredFuel.ShouldBe(expectedFuelForEachMass.Sum());
         }
     }
 }
