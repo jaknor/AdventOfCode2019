@@ -10,12 +10,14 @@ namespace AdventOfCode2019.Day2
 
             for (int i = 0; i < _values.Length; i+=4)
             {
-                if(values[i] == 99)
+                var opCode = new OpCode(_values, i);
+
+                if (opCode.Break)
                 {
                     break;
                 }
 
-                _values[_values[i + 3]] = _values[_values[i + 1]] + _values[_values[i + 2]];
+                _values[opCode.IndexOfResult] = _values[opCode.IndexOfValue1] + _values[opCode.IndexOfValue2];
             }
         }
 
