@@ -12,5 +12,13 @@ namespace AdventOfCode2019.Day2
 
             valueAt0.ShouldBe(99);
         }
+
+        [Fact]
+        public void IntcodeWithAdditionOpCodeStopAfterOneIteration()
+        {
+            var valueAt0 = new IntCode(new int[] { 1, 0, 0, 0, 99 })[0];
+
+            valueAt0.ShouldBe(2);
+        }
     }
 }
