@@ -24,6 +24,18 @@ namespace AdventOfCode2019.Day2
             {
                 IndexOfResult = values[resultIndexIndex];
             }
+
+            Operation = CreateOperation();
+        }
+
+        private IOperation CreateOperation()
+        {
+            if (_operator == (int) OpCodeOperator.Multiplication)
+            {
+                return new MultiplicationOperator();
+            }
+
+            return new AddOperation();
         }
 
         public int IndexOfValue1 { get; }
@@ -33,5 +45,7 @@ namespace AdventOfCode2019.Day2
         public int IndexOfResult { get; }
 
         public bool Break => _operator == (int) OpCodeOperator.Break;
+
+        public IOperation Operation { get; set; }
     }
 }

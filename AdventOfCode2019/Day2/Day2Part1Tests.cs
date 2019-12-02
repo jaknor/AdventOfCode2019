@@ -28,5 +28,13 @@ namespace AdventOfCode2019.Day2
 
             valueAt0.ShouldBe(6);
         }
+
+        [Fact]
+        public void IntcodeWithMultiplicationOpCodeStopAfterOneIteration()
+        {
+            var valueAt0 = new IntCode(new int[] { 2, 1, 1, 0, 99 })[0];
+
+            valueAt0.ShouldBe(1);
+        }
     }
 }

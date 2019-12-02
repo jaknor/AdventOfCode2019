@@ -17,7 +17,7 @@ namespace AdventOfCode2019.Day2
                     break;
                 }
 
-                _values[opCode.IndexOfResult] = _values[opCode.IndexOfValue1] + _values[opCode.IndexOfValue2];
+                _values[opCode.IndexOfResult] =  opCode.Operation.Apply(_values[opCode.IndexOfValue1], _values[opCode.IndexOfValue2]);
             }
         }
 
