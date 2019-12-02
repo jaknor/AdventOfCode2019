@@ -56,5 +56,33 @@ namespace AdventOfCode2019.Day2
 
             valueAt0.ShouldBe(2692315);
         }
+
+        [Fact]
+        public void FullInputPart2()
+        {
+            var input = new CalendarCommaInput("Day2\\Day2Input.txt");
+            var finalNoun = 0;
+            var finalVerb = 0;
+
+            for (int noun = 0; noun < 99; noun++)
+            {
+                for (int verb = 0; verb < 99; verb++)
+                {
+                    var values = input.Read();
+
+                    var valueAt0 = new IntCode(values, noun, verb)[0];
+
+                    if (valueAt0 == 19690720)
+                    {
+                        finalNoun = noun;
+                        finalVerb = verb;
+                        noun = 99;
+                        verb = 99;
+                    }
+                }
+            }
+
+            (finalNoun * 100 + finalVerb).ShouldBe(9507);
+        }
     }
 }
