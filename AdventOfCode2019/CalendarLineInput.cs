@@ -3,11 +3,11 @@
     using System.IO;
     using System.Linq;
 
-    public class CalendarInput
+    public class CalendarLineInput
     {
         private readonly string _path;
 
-        public CalendarInput(string path)
+        public CalendarLineInput(string path)
         {
             _path = path;
         }

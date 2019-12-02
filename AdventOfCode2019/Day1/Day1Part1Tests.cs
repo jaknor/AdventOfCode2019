@@ -60,7 +60,7 @@ namespace AdventOfCode2019.Day1
         [Fact]
         public void FullInput()
         {
-            var input = new CalendarInput("Day1\\Day1Input.txt");
+            var input = new CalendarLineInput("Day1\\Day1Input.txt");
             var expectedRequiredFuel = 3474920;
 
             var requiredFuel = new FuelCounterUpper(_fuelCalculator).Calculate(input.Read());

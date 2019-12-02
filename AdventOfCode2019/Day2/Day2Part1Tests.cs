@@ -36,5 +36,25 @@ namespace AdventOfCode2019.Day2
 
             valueAt0.ShouldBe(1);
         }
+
+        [Fact]
+        public void IntcodeWithMultipleDifferentOperations()
+        {
+            var valueAt0 = new IntCode(new int[] { 1, 1, 1, 4, 99, 5, 6, 0, 99 })[0];
+
+            valueAt0.ShouldBe(30);
+        }
+
+        [Fact]
+        public void FullInput()
+        {
+            var input = new CalendarCommaInput("Day2\\Day2Input.txt");
+
+            var values = input.Read();
+            
+            var valueAt0 = new IntCode(values, 12, 2)[0];
+
+            valueAt0.ShouldBe(2692315);
+        }
     }
 }

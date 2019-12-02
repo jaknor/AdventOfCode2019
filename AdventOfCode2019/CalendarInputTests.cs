@@ -10,7 +10,7 @@
         {
             var expectedArray = new int[] {113045, 63499, 117820, 67582};
 
-            var result = new CalendarInput("CalendarInputTestInput\\IntegerInput.txt").Read();
+            var result = new CalendarLineInput("CalendarInputTestInput\\IntegerInput.txt").Read();
 
             result.ShouldBe(expectedArray);
         }

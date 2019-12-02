@@ -4,9 +4,19 @@ namespace AdventOfCode2019.Day2
     {
         private readonly int[] _values;
 
-        public IntCode(int[] values)
+        public IntCode(int[] values, int? noun = null, int? verb = null)
         {
             _values = values;
+
+            if (noun.HasValue)
+            {
+                _values[1] = noun.Value;
+            }
+
+            if (verb.HasValue)
+            {
+                _values[2] = verb.Value;
+            }
 
             for (int i = 0; i < _values.Length; i+=4)
             {
