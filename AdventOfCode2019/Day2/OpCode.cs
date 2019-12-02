@@ -18,11 +18,11 @@ namespace AdventOfCode2019.Day2
             }
             if (secondIndexIndex < values.Length - 1)
             {
-                IndexOfValue1 = values[secondIndexIndex];
+                IndexOfValue2 = values[secondIndexIndex];
             }
             if (resultIndexIndex < values.Length - 1)
             {
-                IndexOfValue1 = values[resultIndexIndex];
+                IndexOfResult = values[resultIndexIndex];
             }
         }
 

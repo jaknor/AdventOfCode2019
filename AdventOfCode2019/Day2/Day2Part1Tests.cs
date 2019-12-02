@@ -20,5 +20,13 @@ namespace AdventOfCode2019.Day2
 
             valueAt0.ShouldBe(2);
         }
+
+        [Fact]
+        public void IntcodeWithInsufficientNumbersForFinalOpCode()
+        {
+            var valueAt0 = new IntCode(new int[] { 1, 5, 0, 0, 99, 5 })[0];
+
+            valueAt0.ShouldBe(6);
+        }
     }
 }
