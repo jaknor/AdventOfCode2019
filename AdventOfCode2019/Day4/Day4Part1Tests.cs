@@ -89,6 +89,25 @@
         }
 
         [Theory]
+        [InlineData(123456, false)]
+        [InlineData(113456, true)]
+        [InlineData(122456, true)]
+        [InlineData(123356, true)]
+        [InlineData(123446, true)]
+        [InlineData(123455, true)]
+        [InlineData(123555, false)]
+        [InlineData(113555, true)]
+        [InlineData(111355, true)]
+        [InlineData(112225, true)]
+        [InlineData(111125, false)]
+        public void DoubleDigitRequiredButNotPartOfLargerGroup(int password, bool shouldBeValid)
+        {
+            var fuelDepotPassword = new FuelDepotPasswordDoubleDigitButNotPartOfLargerGroupRule();
+
+            fuelDepotPassword.Validate(password).ShouldBe(shouldBeValid);
+        }
+
+        [Theory]
         [InlineData(120456, false)]
         [InlineData(121456, false)]
         [InlineData(122156, false)]
@@ -126,6 +145,33 @@
             }
 
             validPasswords.ShouldBe(1150);
+        }
+
+        [Theory]
+        [InlineData(112233, true)]
+        [InlineData(123444, false)]
+        [InlineData(111122, true)]
+        public void AdventOfCodeTestDataPart2(int password, bool shouldBeValid)
+        {
+            var fuelDepotValidator = FuelDepotPasswordValidator.CreateForPart2(100000, 999999);
+
+            fuelDepotValidator.Valid(password).ShouldBe(shouldBeValid);
+        }
+
+        [Fact]
+        public void FindValidPasswordsPart2()
+        {
+            int lowerBound = 240298, upperBound = 784956;
+
+            var fuelDepotValidator = FuelDepotPasswordValidator.CreateForPart2(lowerBound, upperBound);
+
+            var validPasswords = 0;
+            for (int i = lowerBound; i <= upperBound; i++)
+            {
+                validPasswords += fuelDepotValidator.Valid(i) ? 1 : 0;
+            }
+
+            validPasswords.ShouldBe(748);
         }
     }
 

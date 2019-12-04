@@ -26,5 +26,16 @@
                 new FuelDepotPasswordNeverDecreaseRule()
             });
         }
+
+        public static FuelDepotPasswordValidator CreateForPart2(int lowerBound, int upperBound)
+        {
+            return new FuelDepotPasswordValidator(new List<IFuelDepotPasswordValidationRule>
+            {
+                new FuelDepotPasswordLengthRule(),
+                new FuelDepotPasswordRangeRule(lowerBound, upperBound),
+                new FuelDepotPasswordDoubleDigitButNotPartOfLargerGroupRule(),
+                new FuelDepotPasswordNeverDecreaseRule()
+            });
+        }
     }
 }
