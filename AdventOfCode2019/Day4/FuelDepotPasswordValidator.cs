@@ -13,7 +13,18 @@
 
         public bool Valid(int password)
         {
-            return password.ToString().Length == 6 && password >= _lowerBound && password <= _upperBound;
+            var doubleDigitDetected = false;
+            var passwordAsString = password.ToString();
+            for (int i = 0; i < 6 - 1; i++)
+            {
+                doubleDigitDetected = passwordAsString[i] == passwordAsString[i + 1];
+                if (doubleDigitDetected)
+                {
+                    break;
+                }
+            }
+
+            return password.ToString().Length == 6 && password >= _lowerBound && password <= _upperBound && doubleDigitDetected;
         }
     }
 }

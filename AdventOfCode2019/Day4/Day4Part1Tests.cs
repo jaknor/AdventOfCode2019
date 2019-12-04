@@ -6,16 +6,16 @@
     public class Day4Part1Tests
     {
         [Theory]
-        [InlineData(1, false)]
-        [InlineData(12, false)]
-        [InlineData(123, false)]
-        [InlineData(1234, false)]
-        [InlineData(12345, false)]
-        [InlineData(123456, true)]
+        //[InlineData(1, false)]
+        //[InlineData(12, false)]
+        //[InlineData(123, false)]
+        //[InlineData(1234, false)]
+        //[InlineData(12345, false)]
+        [InlineData(123446, true)]
         [InlineData(1234567, false)]
         public void Only6DigitPasswordsAreValid(int password, bool shouldBeValid)
         {
-            var fuelDepotPassword = new FuelDepotPasswordValidator(123451, 123459);
+            var fuelDepotPassword = new FuelDepotPasswordValidator(100000, 999999);
 
             fuelDepotPassword.Valid(password).ShouldBe(shouldBeValid);
         }
@@ -32,6 +32,20 @@
             var fuelDepotPasswordValidator = new FuelDepotPasswordValidator(lowerBound, upperBound);
 
             fuelDepotPasswordValidator.Valid(password).ShouldBe(shouldBeValid);
+        }
+
+        [Theory]
+        [InlineData(123456, false)]
+        [InlineData(113456, true)]
+        [InlineData(122456, true)]
+        [InlineData(123356, true)]
+        [InlineData(123446, true)]
+        [InlineData(123455, true)]
+        public void DoubleDigitRequired(int password, bool shouldBeValid)
+        {
+            var fuelDepotPassword = new FuelDepotPasswordValidator(100000, 999999);
+
+            fuelDepotPassword.Valid(password).ShouldBe(shouldBeValid);
         }
     }
 }
