@@ -46,18 +46,18 @@
         }
         
         [Theory]
-        //[InlineData(1, false)]
-        //[InlineData(12, false)]
-        //[InlineData(123, false)]
-        //[InlineData(1234, false)]
-        //[InlineData(12345, false)]
+        [InlineData(1, false)]
+        [InlineData(12, false)]
+        [InlineData(123, false)]
+        [InlineData(1234, false)]
+        [InlineData(12345, false)]
         [InlineData(123446, true)]
         [InlineData(1234567, false)]
         public void Only6DigitPasswordsAreValid(int password, bool shouldBeValid)
         {
-            var fuelDepotPassword = new FuelDepotPasswordValidator(100000, 999999);
+            var fuelDepotPassword = new FuelDepotPasswordLengthRule();
 
-            fuelDepotPassword.Valid(password).ShouldBe(shouldBeValid);
+            fuelDepotPassword.Validate(password).ShouldBe(shouldBeValid);
         }
 
         [Theory]
@@ -69,9 +69,9 @@
         [InlineData(111111,222222, 222223, false)]
         public void OnlyPasswordWithinRangeValid(int lowerBound, int upperBound, int password, bool shouldBeValid)
         {
-            var fuelDepotPasswordValidator = new FuelDepotPasswordValidator(lowerBound, upperBound);
+            var fuelDepotPasswordValidator = new FuelDepotPasswordRangeRule(lowerBound, upperBound);
 
-            fuelDepotPasswordValidator.Valid(password).ShouldBe(shouldBeValid);
+            fuelDepotPasswordValidator.Validate(password).ShouldBe(shouldBeValid);
         }
 
         [Theory]
@@ -83,9 +83,9 @@
         [InlineData(123455, true)]
         public void DoubleDigitRequired(int password, bool shouldBeValid)
         {
-            var fuelDepotPassword = new FuelDepotPasswordValidator(100000, 999999);
+            var fuelDepotPassword = new FuelDepotPasswordDoubleDigitRule();
 
-            fuelDepotPassword.Valid(password).ShouldBe(shouldBeValid);
+            fuelDepotPassword.Validate(password).ShouldBe(shouldBeValid);
         }
     }
 
@@ -103,10 +103,5 @@
         {
             return true;
         }
-    }
-
-    public interface IFuelDepotPasswordValidationRule
-    {
-        bool Validate(int password);
     }
 }
