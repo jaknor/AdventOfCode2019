@@ -1,7 +1,11 @@
 ﻿namespace AdventOfCode2019.Day4
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
     public class FuelDepotPasswordValidator
     {
+        private readonly List<IFuelDepotPasswordValidationRule> _rules;
         private readonly int _lowerBound;
         private readonly int _upperBound;
 
@@ -11,8 +15,16 @@
             _upperBound = upperBound;
         }
 
+        public FuelDepotPasswordValidator(List<IFuelDepotPasswordValidationRule> rules)
+        {
+            _rules = rules;
+        }
+
         public bool Valid(int password)
         {
+            return _rules.Any() && _rules.All(r => r.Validate(password));
+            
+            
             var doubleDigitDetected = false;
             var passwordAsString = password.ToString();
             for (int i = 0; i < 6 - 1; i++)

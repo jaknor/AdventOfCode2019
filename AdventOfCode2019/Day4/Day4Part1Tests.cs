@@ -1,10 +1,50 @@
 ﻿namespace AdventOfCode2019.Day4
 {
+    using System.Collections.Generic;
     using Shouldly;
     using Xunit;
 
     public class Day4Part1Tests
     {
+        [Fact]
+        public void FuelDepotPasswordIsInvalidIfNoRules()
+        {
+            const int ValidPassword = 123345;
+
+            var fuelDepotPasswordValidator = new FuelDepotPasswordValidator(new List<IFuelDepotPasswordValidationRule>());
+
+            fuelDepotPasswordValidator.Valid(ValidPassword).ShouldBe(false);
+        }
+
+        [Fact]
+        public void FuelDepotPasswordIsInvalidIfAnyRuleFail()
+        {
+            const int InvalidPassword = 123456;
+
+            var fuelDepotPasswordValidator = new FuelDepotPasswordValidator(new List<IFuelDepotPasswordValidationRule>()
+            {
+                new ValidTestRule(),
+                new InvalidTestRule()
+            });
+
+            fuelDepotPasswordValidator.Valid(InvalidPassword).ShouldBe(false);
+        }
+
+        [Fact]
+        public void FuelDepotPasswordIsValidIfAllRulesAreValid()
+        {
+            const int ValidPassword = 123345;
+
+            var fuelDepotPasswordValidator = new FuelDepotPasswordValidator(new List<IFuelDepotPasswordValidationRule>()
+            {
+                new ValidTestRule(),
+                new ValidTestRule()
+            });
+
+            
+            fuelDepotPasswordValidator.Valid(ValidPassword).ShouldBe(true);
+        }
+        
         [Theory]
         //[InlineData(1, false)]
         //[InlineData(12, false)]
@@ -47,5 +87,26 @@
 
             fuelDepotPassword.Valid(password).ShouldBe(shouldBeValid);
         }
+    }
+
+    public class InvalidTestRule : IFuelDepotPasswordValidationRule
+    {
+        public bool Validate(int password)
+        {
+            return false;
+        }
+    }
+
+    public class ValidTestRule : IFuelDepotPasswordValidationRule
+    {
+        public bool Validate(int password)
+        {
+            return true;
+        }
+    }
+
+    public interface IFuelDepotPasswordValidationRule
+    {
+        bool Validate(int password);
     }
 }
