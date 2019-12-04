@@ -87,6 +87,30 @@
 
             fuelDepotPassword.Validate(password).ShouldBe(shouldBeValid);
         }
+
+        [Theory]
+        [InlineData(120456, false)]
+        [InlineData(121456, false)]
+        [InlineData(122156, false)]
+        [InlineData(122456, true)]
+        [InlineData(123456, true)]
+        public void NeverDecrease(int password, bool shouldBeValid)
+        {
+            var fuelDepotPassword = new FuelDepotPasswordNeverDecreaseRule();
+
+            fuelDepotPassword.Validate(password).ShouldBe(shouldBeValid);
+        }
+
+        [Theory]
+        [InlineData(111111, true)]
+        [InlineData(223450, false)]
+        [InlineData(123789, false)]
+        public void AdventOfCodeTestData(int password, bool shouldBeValid)
+        {
+            var fuelDepotValidator = FuelDepotPasswordValidator.Create(100000, 999999);
+
+            fuelDepotValidator.Valid(password).ShouldBe(shouldBeValid);
+        }
     }
 
     public class InvalidTestRule : IFuelDepotPasswordValidationRule
