@@ -111,6 +111,22 @@
 
             fuelDepotValidator.Valid(password).ShouldBe(shouldBeValid);
         }
+
+        [Fact]
+        public void FindValidPasswords()
+        {
+            int lowerBound = 240298, upperBound = 784956;
+
+            var fuelDepotValidator = FuelDepotPasswordValidator.Create(lowerBound, upperBound);
+
+            var validPasswords = 0;
+            for (int i = lowerBound; i <= upperBound; i++)
+            {
+                validPasswords += fuelDepotValidator.Valid(i) ? 1 : 0;
+            }
+
+            validPasswords.ShouldBe(1150);
+        }
     }
 
     public class InvalidTestRule : IFuelDepotPasswordValidationRule
