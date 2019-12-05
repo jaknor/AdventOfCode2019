@@ -63,5 +63,16 @@ namespace AdventOfCode2019.Day5
 
             valueAt0.ShouldBe(input);
         }
+
+        [Fact]
+        public void IntcodeWithInputOpCodeFollowedByAddStopAfterTwoIteration()
+        {
+            var input = 42;
+            _input.Setup(x => x.Get()).Returns(input);
+
+            var valueAt0 = new IntCode(new int[] { 3, 0, 1, 0, 6, 0, 99 }, _input.Object)[0];
+
+            valueAt0.ShouldBe(input + 99);
+        }
     }
 }
