@@ -3,6 +3,7 @@ namespace AdventOfCode2019.Day5
     public class IntCode
     {
         private readonly int[] _values;
+        private readonly OpCode _lastOperation;
 
         public IntCode(int[] values, IInput input, IOutput output)
         {
@@ -19,8 +20,12 @@ namespace AdventOfCode2019.Day5
                 var result = opCode.Operate(_values);
                 _values = result.values;
                 indexChange = result.indexChange;
+                _lastOperation = opCode;
             }
         }
+
+        public bool Finished => _lastOperation is OpCodeOutput;
+
 
         public int this[int index] => _values[index];
     }

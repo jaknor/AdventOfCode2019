@@ -117,5 +117,37 @@ namespace AdventOfCode2019.Day5
 
             _output.Verify(_ => _.Push(25));
         }
+
+        [Fact]
+        public void NegativeValuesAsImmediate()
+        {
+            var valueAt0 = new IntCode(new int[] { 1101, 100, -1, 0, 99 }, _input.Object, _output.Object)[0];
+
+            valueAt0.ShouldBe(99);
+        }
+
+        [Fact]
+        public void ProgramConsideredFinishedIfHaltAfterOutput()
+        {
+            var intCode = new IntCode(new int[] { 04, 0, 99 }, _input.Object, _output.Object);
+
+            intCode.Finished.ShouldBeTrue();
+        }
+
+        [Fact]
+        public void ProgramNotConsideredFinishedIfHaltAfterAddition()
+        {
+            var intCode = new IntCode(new int[] { 01, 0, 0, 0, 99 }, _input.Object, _output.Object);
+
+            intCode.Finished.ShouldBeFalse();
+        }
+
+        [Fact]
+        public void ProgramNotConsideredFinishedIfHaltAfterMultiply()
+        {
+            var intCode = new IntCode(new int[] { 02, 0, 0, 0, 99 }, _input.Object, _output.Object);
+
+            intCode.Finished.ShouldBeFalse();
+        }
     }
 }
