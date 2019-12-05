@@ -4,30 +4,19 @@ namespace AdventOfCode2019.Day5
     {
         private readonly int[] _values;
 
-        public IntCode(int[] values, int? noun = null, int? verb = null)
+        public IntCode(int[] values, IInput input)
         {
             _values = values;
 
-            if (noun.HasValue)
-            {
-                _values[1] = noun.Value;
-            }
-
-            if (verb.HasValue)
-            {
-                _values[2] = verb.Value;
-            }
-
             for (int i = 0; i < _values.Length; i+=4)
             {
-                var opCode = new OpCode(_values, i);
+                var opCode = OpCode.Create(_values, i, input);
 
-                if (opCode.Break)
-                {
+                var valuesBefore = _values.Clone();
+                _values = opCode.Operate(_values);
+
+                if (valuesBefore == _values)
                     break;
-                }
-
-                _values[opCode.IndexOfResult] =  opCode.Operation.Apply(_values[opCode.IndexOfValue1], _values[opCode.IndexOfValue2]);
             }
         }
 

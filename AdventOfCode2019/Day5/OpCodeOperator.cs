@@ -4,6 +4,7 @@ namespace AdventOfCode2019.Day5
     {
         Addition = 1,
         Multiplication = 2,
-        Break = 99
+        Input = 3,
+        Break = 99,
     }
 }

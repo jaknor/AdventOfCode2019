@@ -1,51 +1,110 @@
 namespace AdventOfCode2019.Day5
 {
-    public class OpCode
+    public abstract class OpCode
     {
-        private readonly int _operator;
+        protected readonly int OperatorIndex;
 
-        public OpCode(int[] values, int currentIndex)
+        public OpCode(int operatorIndex)
+        {
+            OperatorIndex = operatorIndex;
+        }
+
+        public static OpCode Create(int[] values, int currentIndex, IInput input)
         {
             var operatorIndex = currentIndex;
-            var firstIndexIndex = currentIndex + 1;
-            var secondIndexIndex = currentIndex + 2;
-            var resultIndexIndex = currentIndex + 3;
+            
+            var @operator = values[operatorIndex];
 
-            _operator = values[operatorIndex];
-            if (firstIndexIndex < values.Length - 1)
+            switch (@operator)
             {
-                IndexOfValue1 = values[firstIndexIndex];
-            }
-            if (secondIndexIndex < values.Length - 1)
-            {
-                IndexOfValue2 = values[secondIndexIndex];
-            }
-            if (resultIndexIndex < values.Length - 1)
-            {
-                IndexOfResult = values[resultIndexIndex];
+                case (int)OpCodeOperator.Addition:
+                    return new OpCodeAddition(currentIndex);
+                case (int)OpCodeOperator.Multiplication:
+                    return new OpCodeMultiplication(currentIndex);
+                case (int)OpCodeOperator.Input:
+                    return new OpCodeInput(currentIndex, input);
             }
 
-            Operation = CreateOperation();
+            return new OpCodeBreak(currentIndex);
         }
 
-        private IOperation CreateOperation()
+        public abstract int[] Operate(int[] values);
+    }
+
+    public class OpCodeInput : OpCode
+    {
+        private readonly IInput _input;
+        public OpCodeInput(int currentIndex, IInput input) : base(currentIndex)
         {
-            if (_operator == (int) OpCodeOperator.Multiplication)
-            {
-                return new MultiplicationOperator();
-            }
-
-            return new AddOperation();
+            _input = input;
         }
 
-        public int IndexOfValue1 { get; }
+        public override int[] Operate(int[] values)
+        {
+            var resultIndexIndex = OperatorIndex + 1;
+            var indexOfResult = values[resultIndexIndex];
 
-        public int IndexOfValue2 { get; }
+            values[indexOfResult] = _input.Get();
 
-        public int IndexOfResult { get; }
+            return values;
+        }
+    }
 
-        public bool Break => _operator == (int) OpCodeOperator.Break;
+    public class OpCodeMultiplication : OpCode
+    {
+        public OpCodeMultiplication(int operatorIndex) : base(operatorIndex)
+        {
+        }
 
-        public IOperation Operation { get; set; }
+        public override int[] Operate(int[] values)
+        {
+            var firstIndexIndex = OperatorIndex + 1;
+            var secondIndexIndex = OperatorIndex + 2;
+            var resultIndexIndex = OperatorIndex + 3;
+            
+
+            var indexOfValue1 = values[firstIndexIndex];
+            var indexOfValue2 = values[secondIndexIndex];
+            var indexOfResult = values[resultIndexIndex];
+
+            values[indexOfResult] = values[indexOfValue1] * values[indexOfValue2];
+
+            return values;
+        }
+    }
+
+    public class OpCodeBreak : OpCode
+    {
+        public OpCodeBreak(int operatorIndex) : base(operatorIndex)
+        {
+        }
+
+        public override int[] Operate(int[] values)
+        {
+            return values;
+        }
+    }
+
+    public class OpCodeAddition : OpCode
+    {
+        public OpCodeAddition(int operatorIndex) : base(operatorIndex)
+        {
+        }
+
+        public override int[] Operate(int[] values)
+        {
+            var firstIndexIndex = OperatorIndex + 1;
+            var secondIndexIndex = OperatorIndex + 2;
+            var resultIndexIndex = OperatorIndex + 3;
+
+
+            var indexOfValue1 = values[firstIndexIndex];
+            var indexOfValue2 = values[secondIndexIndex];
+            var indexOfResult = values[resultIndexIndex];
+
+            values[indexOfResult] = values[indexOfValue1] + values[indexOfValue2];
+
+            return values;
+        }
     }
 }
