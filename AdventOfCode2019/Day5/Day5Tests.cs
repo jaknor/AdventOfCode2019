@@ -175,9 +175,9 @@ namespace AdventOfCode2019.Day5
         [Fact]
         public void OpCodeJumpIfTrueWithTrueAndPositional()
         {
-            var valueAt0 = new IntCode(new int[] { 05, 1, 1, 0, 99 }, _input.Object, _output.Object)[0];
+            var valueAt0 = new IntCode(new int[] { 05, 3, 4, 10, 5, 1101, 4, 4, 0, 99}, _input.Object, _output.Object)[0];
 
-            valueAt0.ShouldBe(2);
+            valueAt0.ShouldBe(8);
         }
 
         [Fact]
@@ -191,9 +191,9 @@ namespace AdventOfCode2019.Day5
         [Fact]
         public void OpCodeJumpIfTrueWithTrueAndImmediate()
         {
-            var valueAt0 = new IntCode(new int[] { 1105, 1, 2, 0, 99 }, _input.Object, _output.Object)[0];
+            var valueAt0 = new IntCode(new int[] { 1105, 1, 3, 1101, 4, 3, 0, 99 }, _input.Object, _output.Object)[0];
 
-            valueAt0.ShouldBe(2);
+            valueAt0.ShouldBe(7);
         }
 
         [Fact]
@@ -207,9 +207,9 @@ namespace AdventOfCode2019.Day5
         [Fact]
         public void OpCodeJumpIfFalseWithTrueAndPositional()
         {
-            var valueAt0 = new IntCode(new int[] { 06, 3, 5, 0, 99, 1101 }, _input.Object, _output.Object)[0];
+            var valueAt0 = new IntCode(new int[] { 06, 3, 9, 0, 1101, 53, 1, 0, 99, 4}, _input.Object, _output.Object)[0];
 
-            valueAt0.ShouldBe(8);
+            valueAt0.ShouldBe(54);
         }
 
         [Fact]
@@ -223,9 +223,9 @@ namespace AdventOfCode2019.Day5
         [Fact]
         public void OpCodeJumpIfFalseWithTrueAndImmediate()
         {
-            var valueAt0 = new IntCode(new int[] { 1106, 0, 1102, 0, 99 }, _input.Object, _output.Object)[0];
+            var valueAt0 = new IntCode(new int[] { 1106, 0, 4, 99, 1101, 3, 8, 0, 99 }, _input.Object, _output.Object)[0];
 
-            valueAt0.ShouldBe(0);
+            valueAt0.ShouldBe(11);
         }
 
         [Fact]
@@ -290,6 +290,83 @@ namespace AdventOfCode2019.Day5
             var valueAt0 = new IntCode(new int[] { 1108, 2, 2, 0, 99 }, _input.Object, _output.Object)[0];
 
             valueAt0.ShouldBe(1);
+        }
+
+        [Fact]
+        public void EightIsEqualToEightPositional()
+        {
+            _input.Setup(_ => _.Get()).Returns(8);
+
+            new IntCode(new int[] { 3, 9, 8, 9, 10, 9, 4, 9, 99, -1, 8 }, _input.Object, _output.Object);
+
+            _output.Verify(o => o.Push(It.IsAny<int>()), Times.Once);
+            _output.Verify(o => o.Push(1));
+        }
+
+        [Fact]
+        public void SevenIsNotEqualToEightPositional()
+        {
+            _input.Setup(_ => _.Get()).Returns(7);
+
+            new IntCode(new int[] { 3, 9, 8, 9, 10, 9, 4, 9, 99, -1, 8 }, _input.Object, _output.Object);
+
+            _output.Verify(o => o.Push(It.IsAny<int>()), Times.Once);
+            _output.Verify(o => o.Push(0));
+        }
+
+        [Fact]
+        public void EightIsNotLessThanEightImmediate()
+        {
+            _input.Setup(_ => _.Get()).Returns(8);
+
+            new IntCode(new int[] { 3, 3, 1107, -1, 8, 3, 4, 3, 99 }, _input.Object, _output.Object);
+
+            _output.Verify(o => o.Push(It.IsAny<int>()), Times.Once);
+            _output.Verify(o => o.Push(0));
+        }
+
+        [Fact]
+        public void SevenIsLessThanEightImmediate()
+        {
+            _input.Setup(_ => _.Get()).Returns(7);
+
+            new IntCode(new int[] { 3, 3, 1107, -1, 8, 3, 4, 3, 99 }, _input.Object, _output.Object);
+
+            _output.Verify(o => o.Push(It.IsAny<int>()), Times.Once);
+            _output.Verify(o => o.Push(1));
+        }
+
+        [Fact]
+        public void ZeroIsZeroPosition()
+        {
+            _input.Setup(_ => _.Get()).Returns(0);
+
+            new IntCode(new int[] { 3, 12, 6, 12, 15, 1, 13, 14, 13, 4, 13, 99, -1, 0, 1, 9 }, _input.Object, _output.Object);
+
+            _output.Verify(o => o.Push(It.IsAny<int>()), Times.Once);
+            _output.Verify(o => o.Push(0));
+        }
+
+        [Fact]
+        public void TenIsNotZeroPosition()
+        {
+            _input.Setup(_ => _.Get()).Returns(10);
+
+            new IntCode(new int[] { 3, 12, 6, 12, 15, 1, 13, 14, 13, 4, 13, 99, -1, 0, 1, 9 }, _input.Object, _output.Object);
+
+            _output.Verify(o => o.Push(It.IsAny<int>()), Times.Once);
+            _output.Verify(o => o.Push(1));
+        }
+
+        [Fact]
+        public void TenIsNotZeroImmediate()
+        {
+            _input.Setup(_ => _.Get()).Returns(10);
+
+            new IntCode(new int[] { 3, 3, 1105, -1, 9, 1101, 0, 0, 12, 4, 12, 99, 1 }, _input.Object, _output.Object);
+
+            _output.Verify(o => o.Push(It.IsAny<int>()), Times.Once);
+            _output.Verify(o => o.Push(1));
         }
     }
 }

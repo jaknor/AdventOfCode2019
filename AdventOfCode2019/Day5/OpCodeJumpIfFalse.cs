@@ -18,8 +18,8 @@ namespace AdventOfCode2019.Day5
             var indexChange = 3;
             if ((ParameterModes[0] == ParameterMode.Position ? values[indexOfValue1] : indexOfValue1) == 0)
             {
-                values[OperatorIndex] = ParameterModes[1] == ParameterMode.Position ? values[indexOfValue2] : indexOfValue2;
-                indexChange = 0;
+                var parameter2 = ParameterModes[1] == ParameterMode.Position ? values[indexOfValue2] : indexOfValue2;
+                indexChange = parameter2 - OperatorIndex;
             }
 
             return (values, indexChange);
