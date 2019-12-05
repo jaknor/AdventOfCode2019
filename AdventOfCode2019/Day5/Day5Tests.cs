@@ -175,9 +175,9 @@ namespace AdventOfCode2019.Day5
         [Fact]
         public void OpCodeJumpIfTrueWithTrueAndPositional()
         {
-            var valueAt0 = new IntCode(new int[] { 05, 1, 1, 99 }, _input.Object, _output.Object)[0];
+            var valueAt0 = new IntCode(new int[] { 05, 1, 1, 0, 99 }, _input.Object, _output.Object)[0];
 
-            valueAt0.ShouldBe(1);
+            valueAt0.ShouldBe(2);
         }
 
         [Fact]
@@ -191,9 +191,9 @@ namespace AdventOfCode2019.Day5
         [Fact]
         public void OpCodeJumpIfTrueWithTrueAndImmediate()
         {
-            var valueAt0 = new IntCode(new int[] { 1105, 1, 59, 99 }, _input.Object, _output.Object)[0];
+            var valueAt0 = new IntCode(new int[] { 1105, 1, 2, 0, 99 }, _input.Object, _output.Object)[0];
 
-            valueAt0.ShouldBe(59);
+            valueAt0.ShouldBe(2);
         }
     }
 }
