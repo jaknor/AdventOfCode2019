@@ -101,5 +101,13 @@ namespace AdventOfCode2019.Day5
 
             valueAt0.ShouldBe(10);
         }
+
+        [Fact]
+        public void ParametersToMultiplyForMultiplyInstructionAreImmediate()
+        {
+            var valueAt0 = new IntCode(new int[] { 1102, 5, 5, 0, 99 }, _input.Object, _output.Object)[0];
+
+            valueAt0.ShouldBe(25);
+        }
     }
 }
