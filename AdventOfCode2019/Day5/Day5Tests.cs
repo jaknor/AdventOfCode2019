@@ -1,5 +1,6 @@
 namespace AdventOfCode2019.Day5
 {
+    using System.Text;
     using Moq;
     using Shouldly;
     using Xunit;
@@ -367,6 +368,59 @@ namespace AdventOfCode2019.Day5
 
             _output.Verify(o => o.Push(It.IsAny<int>()), Times.Once);
             _output.Verify(o => o.Push(1));
+        }
+
+        [Fact]
+        public void LargeExampleBelowEight()
+        {
+            _input.Setup(_ => _.Get()).Returns(7);
+
+            new IntCode(new int[] { 3,21,1008,21,8,20,1005,20,22,107,8,21,20,1006,20,31,
+                1106,0,36,98,0,0,1002,21,125,20,4,20,1105,1,46,104,
+                999,1105,1,46,1101,1000,1,20,4,20,1105,1,46,98,99 }, _input.Object, _output.Object);
+
+            _output.Verify(o => o.Push(It.IsAny<int>()), Times.Once);
+            _output.Verify(o => o.Push(999));
+        }
+
+        [Fact]
+        public void LargeExampleIsEight()
+        {
+            _input.Setup(_ => _.Get()).Returns(8);
+
+            new IntCode(new int[] { 3,21,1008,21,8,20,1005,20,22,107,8,21,20,1006,20,31,
+                1106,0,36,98,0,0,1002,21,125,20,4,20,1105,1,46,104,
+                999,1105,1,46,1101,1000,1,20,4,20,1105,1,46,98,99 }, _input.Object, _output.Object);
+
+            _output.Verify(o => o.Push(It.IsAny<int>()), Times.Once);
+            _output.Verify(o => o.Push(1000));
+        }
+
+        [Fact]
+        public void LargeExampleAboveEight()
+        {
+            _input.Setup(_ => _.Get()).Returns(9);
+
+            new IntCode(new int[] { 3,21,1008,21,8,20,1005,20,22,107,8,21,20,1006,20,31,
+                1106,0,36,98,0,0,1002,21,125,20,4,20,1105,1,46,104,
+                999,1105,1,46,1101,1000,1,20,4,20,1105,1,46,98,99 }, _input.Object, _output.Object);
+
+            _output.Verify(o => o.Push(It.IsAny<int>()), Times.Once);
+            _output.Verify(o => o.Push(1001));
+        }
+
+        [Fact]
+        public void Part2FullInput()
+        {
+            var input = new CalendarCommaInput("Day5\\Day5Input.txt");
+            var values = input.Read();
+
+            _input.Setup(i => i.Get()).Returns(5);
+
+            new IntCode(values, _input.Object, _output.Object);
+
+            _output.Verify(o => o.Push(It.IsAny<int>()), Times.Exactly(1));
+            _output.Verify(o => o.Push(15486302), Times.Once);
         }
     }
 }
