@@ -149,5 +149,19 @@ namespace AdventOfCode2019.Day5
 
             intCode.Finished.ShouldBeFalse();
         }
+
+        [Fact]
+        public void FullInput()
+        {
+            var input = new CalendarCommaInput("Day5\\Day5Input.txt");
+            var values = input.Read();
+
+            _input.Setup(i => i.Get()).Returns(1);
+
+            new IntCode(values, _input.Object, _output.Object);
+
+            _output.Verify(o => o.Push(0), Times.Exactly(9));
+            _output.Verify(o => o.Push(12440243));
+        }
     }
 }
