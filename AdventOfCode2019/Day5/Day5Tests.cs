@@ -4,12 +4,12 @@ namespace AdventOfCode2019.Day5
     using Shouldly;
     using Xunit;
 
-    public class Day5Part1Tests
+    public class Day5Tests
     {
         private Mock<IInput> _input;
         private Mock<IOutput> _output;
 
-        public Day5Part1Tests()
+        public Day5Tests()
         {
             _input = new Mock<IInput>();
             _output = new Mock<IOutput>();
@@ -151,7 +151,7 @@ namespace AdventOfCode2019.Day5
         }
 
         [Fact]
-        public void FullInput()
+        public void Part1FullInput()
         {
             var input = new CalendarCommaInput("Day5\\Day5Input.txt");
             var values = input.Read();
@@ -162,6 +162,38 @@ namespace AdventOfCode2019.Day5
 
             _output.Verify(o => o.Push(0), Times.Exactly(9));
             _output.Verify(o => o.Push(12440243));
+        }
+
+        [Fact]
+        public void OpCodeJumpIfTrueWithFalseAndPositional()
+        {
+            var valueAt0 = new IntCode(new int[] { 05, 2, 0, 99 }, _input.Object, _output.Object)[0];
+
+            valueAt0.ShouldBe(5);
+        }
+
+        [Fact]
+        public void OpCodeJumpIfTrueWithTrueAndPositional()
+        {
+            var valueAt0 = new IntCode(new int[] { 05, 1, 1, 99 }, _input.Object, _output.Object)[0];
+
+            valueAt0.ShouldBe(1);
+        }
+
+        [Fact]
+        public void OpCodeJumpIfTrueWithFalseAndImmediate()
+        {
+            var valueAt0 = new IntCode(new int[] { 105, 0, 1, 99 }, _input.Object, _output.Object)[0];
+
+            valueAt0.ShouldBe(105);
+        }
+
+        [Fact]
+        public void OpCodeJumpIfTrueWithTrueAndImmediate()
+        {
+            var valueAt0 = new IntCode(new int[] { 1105, 1, 59, 99 }, _input.Object, _output.Object)[0];
+
+            valueAt0.ShouldBe(59);
         }
     }
 }

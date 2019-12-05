@@ -6,6 +6,7 @@ namespace AdventOfCode2019.Day5
         Multiplication = 2,
         Input = 3,
         Output = 4,
+        JumpIfTrue = 5,
         Break = 99,
     }
 }
