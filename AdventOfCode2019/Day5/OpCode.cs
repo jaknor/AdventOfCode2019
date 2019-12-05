@@ -9,7 +9,7 @@ namespace AdventOfCode2019.Day5
             OperatorIndex = operatorIndex;
         }
 
-        public static OpCode Create(int[] values, int currentIndex, IInput input)
+        public static OpCode Create(int[] values, int currentIndex, IInput input, IOutput output)
         {
             var operatorIndex = currentIndex;
             
@@ -23,6 +23,8 @@ namespace AdventOfCode2019.Day5
                     return new OpCodeMultiplication(currentIndex);
                 case (int)OpCodeOperator.Input:
                     return new OpCodeInput(currentIndex, input);
+                case (int)OpCodeOperator.Output:
+                    return new OpCodeOutput(currentIndex, output);
             }
 
             return new OpCodeBreak(currentIndex);
