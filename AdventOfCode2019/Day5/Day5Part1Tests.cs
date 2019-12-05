@@ -109,5 +109,13 @@ namespace AdventOfCode2019.Day5
 
             valueAt0.ShouldBe(25);
         }
+
+        [Fact]
+        public void OutputParameterImmediate()
+        {
+            var valueAt0 = new IntCode(new int[] { 104, 25, 99 }, _input.Object, _output.Object)[0];
+
+            _output.Verify(_ => _.Push(25));
+        }
     }
 }
