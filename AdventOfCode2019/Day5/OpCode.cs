@@ -56,6 +56,8 @@ namespace AdventOfCode2019.Day5
                     return new OpCodeJumpIfTrue(currentIndex, parameterMode);
                 case (int)OpCodeOperator.JumpIfFalse:
                     return new OpCodeJumpIfFalse(currentIndex, parameterMode);
+                case (int)OpCodeOperator.LessThan:
+                    return new OpCodeLessThan(currentIndex, parameterMode);
             }
 
             return new OpCodeBreak(currentIndex, parameterMode);

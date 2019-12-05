@@ -8,6 +8,8 @@ namespace AdventOfCode2019.Day5
         Output = 4,
         JumpIfTrue = 5,
         JumpIfFalse = 6,
-        Break = 99
+        LessThan = 7,
+        Break = 99,
+        
     }
 }
