@@ -195,5 +195,37 @@ namespace AdventOfCode2019.Day5
 
             valueAt0.ShouldBe(2);
         }
+
+        [Fact]
+        public void OpCodeJumpIfFalseWithFalseAndPositional()
+        {
+            var valueAt0 = new IntCode(new int[] { 06, 2, 1, 99 }, _input.Object, _output.Object)[0];
+
+            valueAt0.ShouldBe(6);
+        }
+
+        [Fact]
+        public void OpCodeJumpIfFalseWithTrueAndPositional()
+        {
+            var valueAt0 = new IntCode(new int[] { 06, 3, 5, 0, 99, 1101 }, _input.Object, _output.Object)[0];
+
+            valueAt0.ShouldBe(8);
+        }
+
+        [Fact]
+        public void OpCodeJumpIfFalseWithFalseAndImmediate()
+        {
+            var valueAt0 = new IntCode(new int[] { 106, 1, 1, 99 }, _input.Object, _output.Object)[0];
+
+            valueAt0.ShouldBe(106);
+        }
+
+        [Fact]
+        public void OpCodeJumpIfFalseWithTrueAndImmediate()
+        {
+            var valueAt0 = new IntCode(new int[] { 1106, 0, 1102, 0, 99 }, _input.Object, _output.Object)[0];
+
+            valueAt0.ShouldBe(0);
+        }
     }
 }
