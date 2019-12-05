@@ -2,7 +2,7 @@ namespace AdventOfCode2019.Day5
 {
     public class OpCodeMultiplication : OpCode
     {
-        public OpCodeMultiplication(int operatorIndex) : base(operatorIndex)
+        public OpCodeMultiplication(int operatorIndex, ParameterMode[] parameterModes) : base(operatorIndex, parameterModes)
         {
         }
 

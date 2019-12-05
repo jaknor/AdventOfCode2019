@@ -4,7 +4,7 @@ namespace AdventOfCode2019.Day5
     {
         private readonly IOutput _output;
 
-        public OpCodeOutput(int currentIndex, IOutput output) : base(currentIndex)
+        public OpCodeOutput(int currentIndex, IOutput output, ParameterMode[] parameterModes) : base(currentIndex, parameterModes)
         {
             _output = output;
         }

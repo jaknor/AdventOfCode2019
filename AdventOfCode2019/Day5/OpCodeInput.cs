@@ -3,7 +3,7 @@ namespace AdventOfCode2019.Day5
     public class OpCodeInput : OpCode
     {
         private readonly IInput _input;
-        public OpCodeInput(int currentIndex, IInput input) : base(currentIndex)
+        public OpCodeInput(int currentIndex, IInput input, ParameterMode[] parameterModes) : base(currentIndex, parameterModes)
         {
             _input = input;
         }

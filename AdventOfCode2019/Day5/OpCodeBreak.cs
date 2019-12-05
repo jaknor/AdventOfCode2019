@@ -2,7 +2,7 @@ namespace AdventOfCode2019.Day5
 {
     public class OpCodeBreak : OpCode
     {
-        public OpCodeBreak(int operatorIndex) : base(operatorIndex)
+        public OpCodeBreak(int operatorIndex, ParameterMode[] parameterModes) : base(operatorIndex, parameterModes)
         {
         }
 

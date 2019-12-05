@@ -1,7 +1,5 @@
 namespace AdventOfCode2019.Day5
 {
-    using System.Linq;
-
     public class IntCode
     {
         private readonly int[] _values;
@@ -10,7 +8,7 @@ namespace AdventOfCode2019.Day5
         {
             _values = values;
 
-            var indexChange = 0;
+            int indexChange;
             for (int i = 0; i < _values.Length; i+=indexChange)
             {
                 var opCode = OpCode.Create(_values, i, input, output);
