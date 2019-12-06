@@ -225,5 +225,19 @@
 
             result.ShouldBe(42);
         }
+
+        [Fact]
+        public void FullInput()
+        {
+            var input = new CalendarLineInput("Day6\\Day6Input.txt");
+
+            var map = new OrbitMap(input.ReadString());
+
+            var com = map.Objects.First(o => o.IsCom);
+
+            var result = new OrbitCalculator().GetTotalOrbits(com);
+
+            result.ShouldBe(247089);
+        }
     }
 }
