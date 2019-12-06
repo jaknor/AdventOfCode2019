@@ -4,17 +4,16 @@
 
     public class SpaceObject
     {
-        private readonly string _identifier;
-
         public SpaceObject(string identifier)
         {
-            _identifier = identifier;
+            Identity = identifier;
             Children = new List<SpaceObject>();
         }
 
-        public bool IsCom => _identifier == "COM";
+        public bool IsCom => Identity == "COM";
 
         public List<SpaceObject> Children { get; }
+        public string Identity { get; }
 
         public void AddOrbitingObject(SpaceObject satellite)
         {

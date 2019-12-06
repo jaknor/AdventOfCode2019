@@ -1,6 +1,7 @@
 ﻿namespace AdventOfCode2019.Day6
 {
     using System.Collections.Generic;
+    using System.Linq;
 
     public class OrbitMap
     {
@@ -10,11 +11,20 @@
             foreach (var orbit in orbits)
             {
                 var orbitObjects = orbit.Split(")");
-                var com = new SpaceObject(orbitObjects[0]);
+                var center = new SpaceObject(orbitObjects[0]);
                 var satellite = new SpaceObject(orbitObjects[1]);
-                com.AddOrbitingObject(satellite);
-                Objects.Add(com);
-                Objects.Add(satellite);
+
+                center = Objects.FirstOrDefault(o => o.Identity == center.Identity) ?? center;
+                center.AddOrbitingObject(satellite);
+
+                if (Objects.All(o => o.Identity != center.Identity))
+                {
+                    Objects.Add(center);
+                }
+                if (Objects.All(o => o.Identity != satellite.Identity))
+                {
+                    Objects.Add(satellite);
+                }
             }
         }
 
