@@ -15,6 +15,8 @@
                 var satellite = new SpaceObject(orbitObjects[1]);
 
                 center = Objects.FirstOrDefault(o => o.Identity == center.Identity) ?? center;
+                satellite = Objects.FirstOrDefault(o => o.Identity == satellite.Identity) ?? satellite;
+
                 center.AddOrbitingObject(satellite);
 
                 if (Objects.All(o => o.Identity != center.Identity))

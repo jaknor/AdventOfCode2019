@@ -200,5 +200,30 @@
 
             result.ShouldBe(42);
         }
+
+        [Fact]
+        public void CanCalculateOrbitsForExampleMapOutOfOrder()
+        {
+            var map = new OrbitMap(new[]
+            {
+                "J)K",
+                "B)C",
+                "K)L",
+                "C)D",
+                "D)E",
+                "G)H",
+                "COM)B",
+                "E)F",
+                "B)G",
+                "D)I",
+                "E)J"
+            });
+
+            var com = map.Objects.First(o => o.IsCom);
+
+            var result = new OrbitCalculator().GetTotalOrbits(com);
+
+            result.ShouldBe(42);
+        }
     }
 }
