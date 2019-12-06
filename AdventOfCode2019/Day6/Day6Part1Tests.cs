@@ -24,7 +24,7 @@
 
             var com = map.Objects.First(o => o.IsCom);
 
-            var result = new OrbitCalculator(com).GetTotalOrbits();
+            var result = new OrbitCalculator().GetTotalOrbits(com);
 
             result.ShouldBe(1);
         }
@@ -55,9 +55,41 @@
 
             var com = map.Objects.First(o => o.IsCom);
 
-            var result = new OrbitCalculator(com).GetTotalOrbits();
+            var result = new OrbitCalculator().GetTotalOrbits(com);
 
             result.ShouldBe(2);
+        }
+
+        [Fact]
+        public void CanCreateMapForComWithOneDirectAndOneInDirectObject()
+        {
+            var result = new OrbitMap(new[]
+            {
+                "COM)B",
+                "B)C"
+            });
+
+            result.Objects.Count.ShouldBe(3);
+            result.Objects.Count(o => o.IsCom).ShouldBe(1);
+            var com = result.Objects.First(o => o.IsCom);
+            com.Children.Count.ShouldBe(1);
+            com.Children[0].Children.Count.ShouldBe(1);
+        }
+
+        [Fact]
+        public void CanCalculateOrbitsForComWithOneDirectAndOneInDirectObject()
+        {
+            var map = new OrbitMap(new[]
+            {
+                "COM)B",
+                "B)C"
+            });
+
+            var com = map.Objects.First(o => o.IsCom);
+
+            var result = new OrbitCalculator().GetTotalOrbits(com);
+
+            result.ShouldBe(3);
         }
     }
 }

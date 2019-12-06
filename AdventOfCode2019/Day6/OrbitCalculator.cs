@@ -2,16 +2,16 @@
 {
     public class OrbitCalculator
     {
-        private readonly SpaceObject _com;
-
-        public OrbitCalculator(SpaceObject com)
+        public int GetTotalOrbits(SpaceObject com, int distance = 1)
         {
-            _com = com;
-        }
+            var orbits = com.Children.Count * distance;
 
-        public int GetTotalOrbits()
-        {
-            return _com.Children.Count;
+            foreach (var spaceObject in com.Children)
+            {
+                orbits += GetTotalOrbits(spaceObject, distance + 1);
+            }
+
+            return orbits;
         }
     }
 }
