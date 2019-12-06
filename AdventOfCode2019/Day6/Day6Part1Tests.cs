@@ -176,6 +176,7 @@
             L.Children.Count.ShouldBe(0);
         }
 
+        [Fact]
         public void CanCalculateOrbitsForExampleMap()
         {
             var map = new OrbitMap(new[]
