@@ -12,11 +12,18 @@
             _path = path;
         }
 
-        public int[] Read()
+        public int[] ReadInt()
         {
             var lines = File.ReadLines(_path);
 
             return lines.Select(l => int.Parse(l)).ToArray();
+        }
+
+        public string[] ReadString()
+        {
+            var lines = File.ReadLines(_path);
+
+            return lines.Select(l => l).ToArray();
         }
     }
 }
