@@ -12,6 +12,9 @@
 
         public bool IsCom => Identity == "COM";
 
+        public bool You => Identity == "YOU";
+
+        public bool Santa => Identity == "SAN";
         public List<SpaceObject> Children { get; }
         public string Identity { get; }
 
