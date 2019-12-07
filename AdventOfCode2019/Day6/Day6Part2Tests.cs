@@ -128,7 +128,7 @@
 
             var result = new YouToSantaDistanceCalculator().GetDistance(you, santa);
 
-            result.ShouldBe(4);
+            result.ShouldBe(442);
         }
 
     }

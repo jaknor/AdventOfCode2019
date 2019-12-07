@@ -112,6 +112,7 @@
             com.Children[0].Children[1].Children.Count.ShouldBe(1);
         }
 
+        [Fact]
         public void CanCalculateOrbitsForComWith1Direct2IndirectAndOneOfThemHasIndirect()
         {
             var map = new OrbitMap(new[]
