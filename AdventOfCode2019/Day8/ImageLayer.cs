@@ -7,8 +7,9 @@
     {
         private List<List<SpaceImageColor>> _rows;
 
-        public ImageLayer(string imageData, int width, int height)
+        public ImageLayer(int index, string imageData, int width, int height)
         {
+            Index = index;
             var rows = new List<List<SpaceImageColor>>();
             for (int rowIndex = 0; rowIndex < height; rowIndex++)
             {
@@ -34,6 +35,8 @@
         public int Checksum { get; }
 
         public int NrOfZeros { get; }
+
+        public int Index { get; }
 
         public SpaceImageColor this[int row, int column] => _rows[row].ElementAt(column);
     }

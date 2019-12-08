@@ -6,9 +6,9 @@
     {
         public int Verify(EncodedSpaceImage image)
         {
-            var lowestZero = image.Layers.Min(l => l.NrOfZeros);
+            var layer = image.Layers.LayerWithLeastBlack();
 
-            return image.Layers.Single(l => l.NrOfZeros == lowestZero).Checksum;
+            return layer.Checksum;
         }
     }
 }
