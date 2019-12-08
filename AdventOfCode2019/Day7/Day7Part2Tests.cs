@@ -59,7 +59,7 @@
             thrusterSignal.ShouldBe(139629729);
         }
 
-        [Fact]
+        [Fact()]
         public void CanCalculateThrustForSecondExample()
         {
             var phase1 = 9;
@@ -108,7 +108,7 @@
             thrusterSignal.ShouldBe(18216);
         }
 
-        [Fact]
+        [Fact(Skip = "Too slow")]
         public void FullInputPart2()
         {
             const int MinPhase = 5;

@@ -8,17 +8,33 @@
         [Fact]
         public void OneLayer1x1ImageNoOnesOrTwos()
         {
-            var verifier = new SpaceImageVerifier();
+            var verifier = new ImageLayer();
 
-            verifier.Check("3",1,1).ShouldBe(0);
+            verifier.Check("3").ShouldBe(0);
         }
-    }
 
-    internal class SpaceImageVerifier
-    {
-        public int Check(string imageDate, int width, int height)
+        [Fact]
+        public void OneLayer2x2ImageOneOnesAndOneTwos()
         {
-            return 0;
+            var verifier = new ImageLayer();
+
+            verifier.Check("3132").ShouldBe(1);
+        }
+
+        [Fact]
+        public void OneLayer2x2ImageTwoOnesAndTwoTwos()
+        {
+            var verifier = new ImageLayer();
+
+            verifier.Check("1122").ShouldBe(4);
+        }
+
+        [Fact]
+        public void OneLayer3x4ImageThreeOnesAndTwoTwos()
+        {
+            var verifier = new ImageLayer();
+
+            verifier.Check("431022851134").ShouldBe(6);
         }
     }
 }
