@@ -1,29 +1,40 @@
 ﻿namespace AdventOfCode2019.Day8
 {
-    internal class ImageLayer
-    {
-        public ImageLayer(string imageData)
-        {
-            var nrOfZeros = 0;
-            var nrOfOnes = 0;
-            var nrOfTwos = 0;
+    using System.Collections.Generic;
+    using System.Linq;
 
-            foreach (var pixel in imageData)
+    public class ImageLayer
+    {
+        private List<List<SpaceImageColor>> _rows;
+
+        public ImageLayer(string imageData, int width, int height)
+        {
+            var rows = new List<List<SpaceImageColor>>();
+            for (int rowIndex = 0; rowIndex < height; rowIndex++)
             {
-                if (pixel == '0')
-                    nrOfZeros++;
-                if (pixel == '1')
-                    nrOfOnes++;
-                if (pixel == '2')
-                    nrOfTwos++;
+                var row = new List<SpaceImageColor>();
+                for (int columnIndex = 0; columnIndex < width; columnIndex++)
+                {
+                    row.Add(ToColor(imageData[rowIndex * width + columnIndex]));
+                }
+                rows.Add(row);
             }
 
-            NrOfZeros = nrOfZeros;
-            Checksum = nrOfOnes * nrOfTwos;
+            _rows = rows;
+
+            NrOfZeros = rows.SelectMany(r => r.Select(c => c)).Count(p => p == SpaceImageColor.Black);
+            Checksum = rows.SelectMany(r => r.Select(c => c)).Count(p => p == SpaceImageColor.White) * rows.SelectMany(r => r.Select(c => c)).Count(p => p == SpaceImageColor.Transparent);
+        }
+
+        private SpaceImageColor ToColor(char c)
+        {
+            return (SpaceImageColor) int.Parse(c.ToString());
         }
 
         public int Checksum { get; }
 
         public int NrOfZeros { get; }
+
+        public SpaceImageColor this[int row, int column] => _rows[row].ElementAt(column);
     }
 }
