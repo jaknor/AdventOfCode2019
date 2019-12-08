@@ -2,13 +2,13 @@
 {
     internal class ImageLayer
     {
-        public (int nrOfZeros, int checksum) Check(string imageDate)
+        public ImageLayer(string imageData)
         {
             var nrOfZeros = 0;
             var nrOfOnes = 0;
             var nrOfTwos = 0;
 
-            foreach (var pixel in imageDate)
+            foreach (var pixel in imageData)
             {
                 if (pixel == '0')
                     nrOfZeros++;
@@ -18,7 +18,12 @@
                     nrOfTwos++;
             }
 
-            return (nrOfZeros, nrOfOnes * nrOfTwos);
+            NrOfZeros = nrOfZeros;
+            Checksum = nrOfOnes * nrOfTwos;
         }
+
+        public int Checksum { get; }
+
+        public int NrOfZeros { get; }
     }
 }

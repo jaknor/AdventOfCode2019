@@ -1,5 +1,7 @@
 ﻿namespace AdventOfCode2019.Day8
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using Shouldly;
     using Xunit;
 
@@ -8,49 +10,94 @@
         [Fact]
         public void LayerWith1x1ImageNoOnesOrTwos()
         {
-            var verifier = new ImageLayer();
+            var layer = new ImageLayer("3");
 
-            verifier.Check("3").ShouldBe((0, 0));
+            layer.NrOfZeros.ShouldBe(0);
+            layer.Checksum.ShouldBe(0);
         }
 
         [Fact]
         public void LayerWith2x2ImageOneOnesAndOneTwos()
         {
-            var verifier = new ImageLayer();
+            var layer = new ImageLayer("3132");
 
-            verifier.Check("3132").ShouldBe((0,1));
+            layer.NrOfZeros.ShouldBe(0);
+            layer.Checksum.ShouldBe(1);
         }
 
         [Fact]
         public void LayerWith2x2ImageTwoOnesAndTwoTwos()
         {
-            var verifier = new ImageLayer();
+            var layer = new ImageLayer("1122");
 
-            verifier.Check("1122").ShouldBe((0,4));
+            layer.NrOfZeros.ShouldBe(0);
+            layer.Checksum.ShouldBe(4);
         }
 
         [Fact]
         public void LayerWith3x4ImageThreeOnesAndTwoTwos()
         {
-            var verifier = new ImageLayer();
+            var layer = new ImageLayer("431822851134");
 
-            verifier.Check("431822851134").ShouldBe((0,6));
+            layer.NrOfZeros.ShouldBe(0);
+            layer.Checksum.ShouldBe(6);
         }
 
         [Fact]
         public void LayerWith1x2ImageZeroAvailable()
         {
-            var verifier = new ImageLayer();
+            var layer = new ImageLayer("01");
 
-            verifier.Check("01").ShouldBe((1,0));
+            layer.NrOfZeros.ShouldBe(1);
+            layer.Checksum.ShouldBe(0);
         }
 
         [Fact]
         public void LayerWith3x4ImageThreeOnesAndTwoTwosAndThreeZeros()
         {
-            var verifier = new ImageLayer();
+            var layer = new ImageLayer("031822801104");
 
-            verifier.Check("031822801104").ShouldBe((3, 6));
+            layer.NrOfZeros.ShouldBe(3);
+            layer.Checksum.ShouldBe(6);
+        }
+
+        [Fact]
+        public void WhenTwoLayersFirstOneWithLowestZerosThenChecksumFromFirstLayerReturned()
+        {
+            var verifier = new SpaceImageVerifier();
+
+            var result = verifier.Verify("12342210", 4, 1);
+
+            result.ShouldBe(1);
+        }
+
+        [Fact]
+        public void MultiRowImageFirstLayerBestOption()
+        {
+            var verifier = new SpaceImageVerifier();
+
+            var result = verifier.Verify("1234226012302210", 4, 2);
+
+            result.ShouldBe(3);
+        }
+    }
+
+    public class SpaceImageVerifier
+    {
+        public int Verify(string imageData, int width, int height)
+        {
+            var layers = new List<ImageLayer>();
+
+            var layerLength = width * height;
+            while (imageData.Length > layerLength)
+            {
+                layers.Add(new ImageLayer(imageData.Substring(0, layerLength)));
+                imageData = imageData.Substring(layerLength);
+            }
+
+            var lowestZero = layers.Min(l => l.NrOfZeros);
+
+            return layers.Single(l => l.NrOfZeros == lowestZero).Checksum;
         }
     }
 }
