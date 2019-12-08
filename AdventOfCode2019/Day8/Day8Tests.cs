@@ -6,35 +6,51 @@
     public class Day8Tests
     {
         [Fact]
-        public void OneLayer1x1ImageNoOnesOrTwos()
+        public void LayerWith1x1ImageNoOnesOrTwos()
         {
             var verifier = new ImageLayer();
 
-            verifier.Check("3").ShouldBe(0);
+            verifier.Check("3").ShouldBe((0, 0));
         }
 
         [Fact]
-        public void OneLayer2x2ImageOneOnesAndOneTwos()
+        public void LayerWith2x2ImageOneOnesAndOneTwos()
         {
             var verifier = new ImageLayer();
 
-            verifier.Check("3132").ShouldBe(1);
+            verifier.Check("3132").ShouldBe((0,1));
         }
 
         [Fact]
-        public void OneLayer2x2ImageTwoOnesAndTwoTwos()
+        public void LayerWith2x2ImageTwoOnesAndTwoTwos()
         {
             var verifier = new ImageLayer();
 
-            verifier.Check("1122").ShouldBe(4);
+            verifier.Check("1122").ShouldBe((0,4));
         }
 
         [Fact]
-        public void OneLayer3x4ImageThreeOnesAndTwoTwos()
+        public void LayerWith3x4ImageThreeOnesAndTwoTwos()
         {
             var verifier = new ImageLayer();
 
-            verifier.Check("431022851134").ShouldBe(6);
+            verifier.Check("431822851134").ShouldBe((0,6));
+        }
+
+        [Fact]
+        public void LayerWith1x2ImageZeroAvailable()
+        {
+            var verifier = new ImageLayer();
+
+            verifier.Check("01").ShouldBe((1,0));
+        }
+
+        [Fact]
+        public void LayerWith3x4ImageThreeOnesAndTwoTwosAndThreeZeros()
+        {
+            var verifier = new ImageLayer();
+
+            verifier.Check("031822801104").ShouldBe((3, 6));
         }
     }
 }
