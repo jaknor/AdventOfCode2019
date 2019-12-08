@@ -80,6 +80,19 @@
 
             result.ShouldBe(3);
         }
+
+        [Fact]
+        public void FullInput()
+        {
+            var input = new CalendarLineInput("Day8\\Day8Input.txt");
+            var values = input.ReadString();
+
+            var verifier = new SpaceImageVerifier();
+
+            var result = verifier.Verify(values[0], 25, 6);
+
+            result.ShouldBe(1560);
+        }
     }
 
     public class SpaceImageVerifier
