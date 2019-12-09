@@ -174,7 +174,24 @@ namespace AdventOfCode2019.Day9
             new IntCode(values, input.Object, output.Object);
 
             output.Verify(o => o.Push(It.IsAny<long>()), Times.Once);
-            output.Verify(o => o.Push(14), Times.Once);
+            output.Verify(o => o.Push(3340912345), Times.Once);
+        }
+
+        [Fact]
+        public void FullInputPart2()
+        {
+            var input = new Mock<IInput>();
+            var output = new Mock<IOutput>();
+
+            input.Setup(i => i.Get()).Returns(2);
+
+            var instructions = new CalendarCommaInput("Day9\\Day9Input.txt");
+            var values = instructions.ReadLong();
+
+            new IntCode(values, input.Object, output.Object);
+
+            output.Verify(o => o.Push(It.IsAny<long>()), Times.Once);
+            output.Verify(o => o.Push(51754), Times.Once);
         }
     }
 }
