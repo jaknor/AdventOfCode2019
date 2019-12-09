@@ -16,7 +16,7 @@ namespace AdventOfCode2019.Day9
             var indexOfValue2 = values[secondIndexIndex];
             var indexOfResult = values[resultIndexIndex];
 
-            values[indexOfResult] = (ParameterModes[0] == ParameterMode.Position ? values[indexOfValue1] : indexOfValue1) * (ParameterModes[1] == ParameterMode.Position ? values[indexOfValue2] : indexOfValue2);
+            values[indexOfResult] = GetValueByMode(values, ParameterModes[0], indexOfValue1) * GetValueByMode(values, ParameterModes[1], indexOfValue2);
 
             return (values, 4);
         }
