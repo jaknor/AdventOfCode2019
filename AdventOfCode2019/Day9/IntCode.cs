@@ -8,11 +8,12 @@ namespace AdventOfCode2019.Day9
         public IntCode(int[] values, IInput input, IOutput output)
         {
             _values = values;
+            RelativeBase @base = new RelativeBase();
 
             int indexChange;
             for (int i = 0; i < _values.Length; i+=indexChange)
             {
-                var opCode = OpCode.Create(_values, i, input, output);
+                var opCode = OpCode.Create(_values, i, input, output, @base);
 
                 if (opCode is OpCodeBreak)
                     break;

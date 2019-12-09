@@ -2,7 +2,7 @@ namespace AdventOfCode2019.Day9
 {
     public class OpCodeJumpIfFalse : OpCode
     {
-        public OpCodeJumpIfFalse(int currentIndex, ParameterMode[] parameterMode) : base(currentIndex, parameterMode)
+        public OpCodeJumpIfFalse(int currentIndex, ParameterMode[] parameterMode, IRelativBase relativBase) : base(currentIndex, parameterMode, relativBase)
         {
             
         }

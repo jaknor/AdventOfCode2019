@@ -2,7 +2,7 @@ namespace AdventOfCode2019.Day9
 {
     public class OpCodeLessThan : OpCode
     {
-        public OpCodeLessThan(int currentIndex, ParameterMode[] parameterMode) : base(currentIndex, parameterMode) { }
+        public OpCodeLessThan(int currentIndex, ParameterMode[] parameterMode, IRelativBase relativBase) : base(currentIndex, parameterMode, relativBase) { }
         public override (int[] values, int indexChange) Operate(int[] values)
         {
             var firstIndexIndex = OperatorIndex + 1;

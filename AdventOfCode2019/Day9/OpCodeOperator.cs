@@ -10,6 +10,7 @@ namespace AdventOfCode2019.Day9
         JumpIfFalse = 6,
         LessThan = 7,
         Equal = 8,
-        Break = 99
+        AdjustRelativeBase = 9,
+        Break = 99,
     }
 }
