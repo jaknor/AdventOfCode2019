@@ -13,8 +13,8 @@ namespace AdventOfCode2019.Day9
             var indexOfValue2 = values[secondIndexIndex];
             var indexOfResult = values[resultIndexIndex];
 
-            var parameter1 = (ParameterModes[0] == ParameterMode.Position ? values[indexOfValue1] : indexOfValue1);
-            var parameter2 = (ParameterModes[1] == ParameterMode.Position ? values[indexOfValue2] : indexOfValue2);
+            var parameter1 = GetValueByMode(values, ParameterModes[0], indexOfValue1);
+            var parameter2 = GetValueByMode(values, ParameterModes[1], indexOfValue2);
             if (parameter1 == parameter2)
             {
                 values[indexOfResult] = 1;

@@ -14,7 +14,7 @@ namespace AdventOfCode2019.Day9
             var resultIndexIndex = OperatorIndex + 1;
             var indexOfResult = values[resultIndexIndex];
 
-            _output.Push(ParameterModes[0] == ParameterMode.Position ? values[indexOfResult] : indexOfResult);
+            _output.Push(GetValueByMode(values, ParameterModes[0], indexOfResult));
 
             return (values, 2);
         }
