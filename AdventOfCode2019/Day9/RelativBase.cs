@@ -2,24 +2,24 @@ namespace AdventOfCode2019.Day9
 {
     public interface IRelativBaseModifier
     {
-        void Update(int change);
+        void Update(long change);
     }
 
     public interface IRelativBase
     {
-        int Get();
+        long Get();
     }
 
     public class RelativeBase: IRelativBase, IRelativBaseModifier
     {
-        private int _relativeBase = 0;
+        private long _relativeBase = 0;
 
-        public int Get()
+        public long Get()
         {
             return _relativeBase;
         }
 
-        public void Update(int change)
+        public void Update(long change)
         {
             _relativeBase += change;
         }

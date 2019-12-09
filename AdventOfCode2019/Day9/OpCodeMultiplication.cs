@@ -1,12 +1,14 @@
 namespace AdventOfCode2019.Day9
 {
+    using System.Collections.Generic;
+
     public class OpCodeMultiplication : OpCode
     {
-        public OpCodeMultiplication(int operatorIndex, ParameterMode[] parameterModes, IRelativBase relativBase) : base(operatorIndex, parameterModes, relativBase)
+        public OpCodeMultiplication(long operatorIndex, ParameterMode[] parameterModes, IRelativBase relativBase) : base(operatorIndex, parameterModes, relativBase)
         {
         }
 
-        public override (int[] values, int indexChange) Operate(int[] values)
+        public override (Dictionary<long, long> values, long indexChange) Operate(Dictionary<long, long> values)
         {
             var firstIndexIndex = OperatorIndex + 1;
             var secondIndexIndex = OperatorIndex + 2;

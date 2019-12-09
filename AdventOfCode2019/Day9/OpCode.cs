@@ -1,19 +1,21 @@
 namespace AdventOfCode2019.Day9
 {
+    using System.Collections.Generic;
+
     public abstract class OpCode
     {
-        protected readonly int OperatorIndex;
+        protected readonly long OperatorIndex;
         protected readonly ParameterMode[] ParameterModes;
         private readonly IRelativBase _relativBase;
 
-        public OpCode(int operatorIndex, ParameterMode[] parameterModes, IRelativBase relativeBase)
+        public OpCode(long operatorIndex, ParameterMode[] parameterModes, IRelativBase relativeBase)
         {
             OperatorIndex = operatorIndex;
             ParameterModes = parameterModes;
             _relativBase = relativeBase;
         }
 
-        public static OpCode Create(int[] values, int currentIndex, IInput input, IOutput output, RelativeBase @base)
+        public static OpCode Create(Dictionary<long, long> values, long currentIndex, IInput input, IOutput output, RelativeBase @base)
         {
             var operatorIndex = currentIndex;
             
@@ -44,7 +46,7 @@ namespace AdventOfCode2019.Day9
                 modeIndex++;
             }
 
-            var @operator = int.Parse(operatorString);
+            var @operator = long.Parse(operatorString);
 
             switch (@operator)
             {
@@ -71,9 +73,9 @@ namespace AdventOfCode2019.Day9
             return new OpCodeBreak(currentIndex, parameterMode, @base);
         }
 
-        public abstract (int[] values, int indexChange) Operate(int[] values);
+        public abstract (Dictionary<long, long> values, long indexChange) Operate(Dictionary<long, long> values);
 
-        protected int GetValueByMode(int[] values, ParameterMode mode, int valueOrIndex)
+        protected long GetValueByMode(Dictionary<long, long> values, ParameterMode mode, long valueOrIndex)
         {
             if (mode == ParameterMode.Immediate)
             {
@@ -82,7 +84,7 @@ namespace AdventOfCode2019.Day9
 
             var offSet = mode == ParameterMode.Relative ? _relativBase.Get() : 0;
 
-            return values[valueOrIndex + offSet];
+            return values.SafeGet(valueOrIndex + offSet);
         }
     }
 
@@ -91,5 +93,18 @@ namespace AdventOfCode2019.Day9
         Position,
         Immediate,
         Relative
+    }
+
+    public static class DictionaryExtensions
+    {
+        public static long SafeGet(this Dictionary<long, long> values, long key)
+        {
+            if (values.ContainsKey(key))
+            {
+                return values[key];
+            }
+
+            return 0;
+        }
     }
 }

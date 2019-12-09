@@ -1,13 +1,15 @@
 namespace AdventOfCode2019.Day9
 {
+    using System.Collections.Generic;
+
     public class OpCodeJumpIfTrue : OpCode
     {
-        public OpCodeJumpIfTrue(int currentIndex, ParameterMode[] parameterMode, IRelativBase relativBase) : base(currentIndex, parameterMode, relativBase)
+        public OpCodeJumpIfTrue(long currentIndex, ParameterMode[] parameterMode, IRelativBase relativBase) : base(currentIndex, parameterMode, relativBase)
         {
             
         }
 
-        public override (int[] values, int indexChange) Operate(int[] values)
+        public override (Dictionary<long, long> values, long indexChange) Operate(Dictionary<long, long> values)
         {
             var firstIndexIndex = OperatorIndex + 1;
             var secondIndexIndex = OperatorIndex + 2;
@@ -15,7 +17,7 @@ namespace AdventOfCode2019.Day9
             var indexOfValue1 = values[firstIndexIndex];
             var indexOfValue2 = values[secondIndexIndex];
 
-            var indexChange = 3;
+            long indexChange = 3;
             if (GetValueByMode(values, ParameterModes[0], indexOfValue1) != 0)
             {
                 var parameter2 = GetValueByMode(values, ParameterModes[1], indexOfValue2);

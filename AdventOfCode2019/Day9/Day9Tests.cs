@@ -12,7 +12,7 @@ namespace AdventOfCode2019.Day9
             var input = new Mock<IInput>();
             var output = new Mock<IOutput>();
 
-            var result = new IntCode(new []{ 2201, 1, 2, 0, 99 }, input.Object, output.Object)[0];
+            var result = new IntCode(new long[]{ 2201, 1, 2, 0, 99 }, input.Object, output.Object)[0];
 
             result.ShouldBe(3);
         }
@@ -23,7 +23,7 @@ namespace AdventOfCode2019.Day9
             var input = new Mock<IInput>();
             var output = new Mock<IOutput>();
 
-            var result = new IntCode(new[] { 09, 1, 2201, 1, 2, 0, 99 }, input.Object, output.Object)[0];
+            var result = new IntCode(new long[] { 09, 1, 2201, 1, 2, 0, 99 }, input.Object, output.Object)[0];
 
             result.ShouldBe(2202);
         }
@@ -34,7 +34,7 @@ namespace AdventOfCode2019.Day9
             var input = new Mock<IInput>();
             var output = new Mock<IOutput>();
 
-            var result = new IntCode(new[] { 09, 1, 2202, 1, 3, 0, 99 }, input.Object, output.Object)[0];
+            var result = new IntCode(new long[] { 09, 1, 2202, 1, 3, 0, 99 }, input.Object, output.Object)[0];
 
             result.ShouldBe(2202 * 3);
         }
@@ -45,7 +45,7 @@ namespace AdventOfCode2019.Day9
             var input = new Mock<IInput>();
             var output = new Mock<IOutput>();
 
-            var result = new IntCode(new[] { 09, 1, 2208, 0, 6, 0, 99, 1 }, input.Object, output.Object)[0];
+            var result = new IntCode(new long[] { 09, 1, 2208, 0, 6, 0, 99, 1 }, input.Object, output.Object)[0];
 
             result.ShouldBe(1);
         }
@@ -56,7 +56,7 @@ namespace AdventOfCode2019.Day9
             var input = new Mock<IInput>();
             var output = new Mock<IOutput>();
 
-            var result = new IntCode(new[] { 09, 1, 2206, 5, 11, 99, 0, 1101, 1, 1, 0, 99, 7}, input.Object, output.Object)[0];
+            var result = new IntCode(new long[] { 09, 1, 2206, 5, 11, 99, 0, 1101, 1, 1, 0, 99, 7}, input.Object, output.Object)[0];
 
             result.ShouldBe(2);
         }
@@ -67,7 +67,7 @@ namespace AdventOfCode2019.Day9
             var input = new Mock<IInput>();
             var output = new Mock<IOutput>();
 
-            var result = new IntCode(new[] { 09, 1, 2205, 5, 11, 99, 1, 1101, 1, 1, 0, 99, 7 }, input.Object, output.Object)[0];
+            var result = new IntCode(new long[] { 09, 1, 2205, 5, 11, 99, 1, 1101, 1, 1, 0, 99, 7 }, input.Object, output.Object)[0];
 
             result.ShouldBe(2);
         }
@@ -78,7 +78,7 @@ namespace AdventOfCode2019.Day9
             var input = new Mock<IInput>();
             var output = new Mock<IOutput>();
 
-            var result = new IntCode(new[] { 09, 1, 2207, 6, 7, 0, 99, 5, 10 }, input.Object, output.Object)[0];
+            var result = new IntCode(new long[] { 09, 1, 2207, 6, 7, 0, 99, 5, 10 }, input.Object, output.Object)[0];
 
             result.ShouldBe(1);
         }
@@ -89,9 +89,62 @@ namespace AdventOfCode2019.Day9
             var input = new Mock<IInput>();
             var output = new Mock<IOutput>();
 
-            var result = new IntCode(new[] { 09, 1, 2204, 1, 99 }, input.Object, output.Object)[0];
+            var result = new IntCode(new long[] { 09, 1, 2204, 1, 99 }, input.Object, output.Object)[0];
 
             output.Verify(o => o.Push(2204), Times.Once);
+        }
+
+        [Fact]
+        public void Example1()
+        {
+            var input = new Mock<IInput>();
+            var output = new Mock<IOutput>();
+
+            var values = new long[] { 109, 1, 204, -1, 1001, 100, 1, 100, 1008, 100, 16, 101, 1006, 101, 0, 99 };
+            new IntCode(values, input.Object, output.Object);
+
+            int index = 0;
+            ((long)output.Invocations[index].Arguments[0]).ShouldBe(values[index++]);
+            ((long)output.Invocations[index].Arguments[0]).ShouldBe(values[index++]);
+            ((long)output.Invocations[index].Arguments[0]).ShouldBe(values[index++]);
+            ((long)output.Invocations[index].Arguments[0]).ShouldBe(values[index++]);
+            ((long)output.Invocations[index].Arguments[0]).ShouldBe(values[index++]);
+            ((long)output.Invocations[index].Arguments[0]).ShouldBe(values[index++]);
+            ((long)output.Invocations[index].Arguments[0]).ShouldBe(values[index++]);
+            ((long)output.Invocations[index].Arguments[0]).ShouldBe(values[index++]);
+            ((long)output.Invocations[index].Arguments[0]).ShouldBe(values[index++]);
+            ((long)output.Invocations[index].Arguments[0]).ShouldBe(values[index++]);
+            ((long)output.Invocations[index].Arguments[0]).ShouldBe(values[index++]);
+            ((long)output.Invocations[index].Arguments[0]).ShouldBe(values[index++]);
+            ((long)output.Invocations[index].Arguments[0]).ShouldBe(values[index++]);
+            ((long)output.Invocations[index].Arguments[0]).ShouldBe(values[index++]);
+            ((long)output.Invocations[index].Arguments[0]).ShouldBe(values[index++]);
+        }
+
+        [Fact]
+        public void Example2()
+        {
+            var input = new Mock<IInput>();
+            var output = new Mock<IOutput>();
+
+            var values = new long[] { 1102, 34915192, 34915192, 7, 4, 7, 99, 0 };
+            new IntCode(values, input.Object, output.Object);
+
+            
+            ((long)output.Invocations[0].Arguments[0]).ToString().Length.ShouldBe(16);
+        }
+
+        [Fact]
+        public void Example3()
+        {
+            var input = new Mock<IInput>();
+            var output = new Mock<IOutput>();
+
+            var values = new long[] { 104, 1125899906842624, 99 };
+            new IntCode(values, input.Object, output.Object);
+
+
+            ((long)output.Invocations[0].Arguments[0]).ShouldBe(values[1]);
         }
     }
 }

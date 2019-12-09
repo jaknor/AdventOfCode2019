@@ -1,33 +1,36 @@
 namespace AdventOfCode2019.Day9
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
     public class IntCode
     {
-        private readonly int[] _values;
+        private readonly Dictionary<long, long> _values;
         private readonly OpCode _lastOperation;
 
-        public IntCode(int[] values, IInput input, IOutput output)
+        public IntCode(long[] values, IInput input, IOutput output)
         {
-            _values = values;
+            long instructionIndex = 0;
+            _values = values.ToDictionary(v => instructionIndex++, v => v);
             RelativeBase @base = new RelativeBase();
 
-            int indexChange;
-            for (int i = 0; i < _values.Length; i+=indexChange)
+            long index = 0;
+            var opCode = OpCode.Create(_values, index, input, output, @base);
+            
+            while (!(opCode is OpCodeBreak))
             {
-                var opCode = OpCode.Create(_values, i, input, output, @base);
-
-                if (opCode is OpCodeBreak)
-                    break;
-
                 var result = opCode.Operate(_values);
                 _values = result.values;
-                indexChange = result.indexChange;
+                index += result.indexChange;
                 _lastOperation = opCode;
+
+                opCode = OpCode.Create(_values, index, input, output, @base);
             }
         }
 
         public bool Finished => _lastOperation is OpCodeOutput;
 
 
-        public int this[int index] => _values[index];
+        public long this[long index] => _values[index];
     }
 }
