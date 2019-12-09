@@ -18,5 +18,12 @@
 
             return lines.Select(l => int.Parse(l)).ToArray();
         }
+
+        public long[] ReadLong()
+        {
+            var lines = File.ReadLines(_path).First().Split(",");
+
+            return lines.Select(l => long.Parse(l)).ToArray();
+        }
     }
 }

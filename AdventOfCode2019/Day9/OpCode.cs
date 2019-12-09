@@ -86,6 +86,16 @@ namespace AdventOfCode2019.Day9
 
             return values.SafeGet(valueOrIndex + offSet);
         }
+
+        protected long GetWriteIndex(ParameterMode mode, long currentIndex)
+        {
+            if (mode == ParameterMode.Relative)
+            {
+                return currentIndex + _relativBase.Get();
+            }
+
+            return currentIndex;
+        }
     }
 
     public enum ParameterMode

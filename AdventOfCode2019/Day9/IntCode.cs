@@ -31,6 +31,6 @@ namespace AdventOfCode2019.Day9
         public bool Finished => _lastOperation is OpCodeOutput;
 
 
-        public long this[long index] => _values[index];
+        public long this[long index] => _values.SafeGet(index);
     }
 }

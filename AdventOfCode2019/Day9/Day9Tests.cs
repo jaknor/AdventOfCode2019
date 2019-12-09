@@ -95,6 +95,19 @@ namespace AdventOfCode2019.Day9
         }
 
         [Fact]
+        public void CanModifyRelativeBaseAndUseItToStoreInput()
+        {
+            var input = new Mock<IInput>();
+            var output = new Mock<IOutput>();
+
+            input.Setup(i => i.Get()).Returns(234);
+
+            var result = new IntCode(new long[] { 09, 1, 203, -1, 99 }, input.Object, output.Object)[0];
+
+            result.ShouldBe(234);
+        }
+
+        [Fact]
         public void Example1()
         {
             var input = new Mock<IInput>();
@@ -145,6 +158,23 @@ namespace AdventOfCode2019.Day9
 
 
             ((long)output.Invocations[0].Arguments[0]).ShouldBe(values[1]);
+        }
+
+        [Fact]
+        public void FullInputPart1()
+        {
+            var input = new Mock<IInput>();
+            var output = new Mock<IOutput>();
+
+            input.Setup(i => i.Get()).Returns(1);
+
+            var instructions = new CalendarCommaInput("Day9\\Day9Input.txt");
+            var values = instructions.ReadLong();
+
+            new IntCode(values, input.Object, output.Object);
+
+            output.Verify(o => o.Push(It.IsAny<long>()), Times.Once);
+            output.Verify(o => o.Push(14), Times.Once);
         }
     }
 }

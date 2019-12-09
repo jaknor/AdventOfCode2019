@@ -16,7 +16,7 @@ namespace AdventOfCode2019.Day9
             var parameterIndexIndex = OperatorIndex + 1;
             var indexOfResult = values[parameterIndexIndex];
 
-            _relativBaseModifier.Update(indexOfResult);
+            _relativBaseModifier.Update(GetValueByMode(values, ParameterModes[0], indexOfResult));
 
             return (values, 2);
         }

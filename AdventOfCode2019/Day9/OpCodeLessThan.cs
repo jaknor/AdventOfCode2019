@@ -13,7 +13,7 @@ namespace AdventOfCode2019.Day9
 
             var indexOfValue1 = values[firstIndexIndex];
             var indexOfValue2 = values[secondIndexIndex];
-            var indexOfResult = values[resultIndexIndex];
+            var indexOfResult = GetWriteIndex(ParameterModes[2], values[resultIndexIndex]);
 
             var parameter1 = GetValueByMode(values, ParameterModes[0], indexOfValue1);
             var parameter2 = GetValueByMode(values, ParameterModes[1], indexOfValue2);
